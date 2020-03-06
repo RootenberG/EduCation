@@ -27,6 +27,7 @@ class Course(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     overview = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
+    students = models.ManyToManyField(User, related_name="courses_joined", blank=True)
 
     class Meta:
         ordering = ["-created"]
@@ -45,7 +46,7 @@ class Module(models.Model):
         ordering = ["order"]
 
     def __str__(self):
-        return f"{self.order}. {self.title}" 
+        return f"{self.order}. {self.title}"
 
 
 class Content(models.Model):
