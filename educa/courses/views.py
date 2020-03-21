@@ -12,6 +12,7 @@ from .models import Module, Content
 from .forms import ModuleFormSet
 from django.views.generic.detail import DetailView
 from django.db.models import Count
+from django.core.cache import cache
 from students.forms import CourseEnrollForm
 
 
