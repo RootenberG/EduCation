@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "courses.apps.CoursesConfig",
     "students.apps.StudentsConfig",
     "embed_video",
-    'memcache_status',
+    "memcache_status",
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -127,10 +128,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 # CACHES
 
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-#         "LOCATION": "127.0.0.1:11211",
-#     }
-# }
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": "127.0.0.1:11212",
+    }
+}
 
+# REST
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
+}
