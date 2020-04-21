@@ -1,3 +1,4 @@
+"""Courses models"""
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -8,6 +9,8 @@ from django.utils.safestring import mark_safe
 
 
 class Subject(models.Model):
+    """Model that contains set of courses"""
+
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
 
@@ -19,11 +22,13 @@ class Subject(models.Model):
 
 
 class Course(models.Model):
+    """Model that contains set of courses"""
+
     owner = models.ForeignKey(
-        User, related_name="courses_created", on_delete=models.CASCADE
+        User, related_name="courses_created", on_delete=models.CASCADE,
     )
     subject = models.ForeignKey(
-        Subject, related_name="courses", on_delete=models.CASCADE
+        Subject, related_name="courses", on_delete=models.CASCADE,
     )
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
@@ -32,6 +37,8 @@ class Course(models.Model):
     students = models.ManyToManyField(User, related_name="courses_joined", blank=True)
 
     class Meta:
+        """Order"""
+
         ordering = ["-created"]
 
     def __str__(self):
@@ -39,6 +46,8 @@ class Course(models.Model):
 
 
 class Module(models.Model):
+    """Model that contains set of content"""
+
     course = models.ForeignKey(Course, related_name="modules", on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
@@ -48,12 +57,15 @@ class Module(models.Model):
         ordering = ["order"]
 
     def __str__(self):
+
         return f"{self.order}. {self.title}"
 
 
 class Content(models.Model):
+    """Some content model like text, video, image or file"""
+
     module = models.ForeignKey(
-        Module, related_name="contents", on_delete=models.CASCADE
+        Module, related_name="contents", on_delete=models.CASCADE,
     )
     content_type = models.ForeignKey(
         ContentType,
@@ -69,8 +81,10 @@ class Content(models.Model):
 
 
 class ItemBase(models.Model):
+    """Abstract content model"""
+
     owner = models.ForeignKey(
-        User, related_name="%(class)s_related", on_delete=models.CASCADE
+        User, related_name="%(class)s_related", on_delete=models.CASCADE,
     )
     title = models.CharField(max_length=250)
     created = models.DateTimeField(auto_now_add=True)
@@ -78,7 +92,7 @@ class ItemBase(models.Model):
 
     def render(self):
         return render_to_string(
-            "courses/content/{}.html".format(self._meta.model_name), {"item": self}
+            "courses/content/{}.html".format(self._meta.model_name), {"item": self},
         )
 
     class Meta:
