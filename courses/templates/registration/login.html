@@ -1,111 +1,22 @@
-{% load static %}
+{% extends "base.html" %}
 
+{% block title %}Log-in{% endblock %}
 
-<!DOCKTYPE html>
-<head>
-<title>{% block title %}Login{% endblock %}</title>
-<link href="{% static "css/login.css" %}" rel="stylesheet">
-</head>
-<body style="
-              background-image:linear-gradient(to right, rgba(0,0,0,.6), rgba(0,0,0,.8)), url({% static "images/bacground2.jpg" %});
-              background-repeat: no-repeat;
-              background-size: cover;">
-<!-- <div id="login-block">
-  <h1 class="text-font">Login</h1>
+{% block content %}
+  <h1>Log-in</h1>
   <div class="module">
     {% if form.errors %}
-      <p class="text-font">Your username and password didn't match. Please try again.</p>
+      <p>Your username and password didn't match. Please try again.</p>
     {% else %}
-      <p class="text-font">Please, use the following form to log-in:</p>
+      <p>Please, use the following form to log-in:</p>
     {% endif %}
     <div class="login-form">
       <form action="{% url 'login' %}" method="post">
         {{ form.as_p }}
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}" />
-        <a href="#" id="forg-pass">Forgot a password?</a>
-        <p class="animate-button">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <input type="submit" value="Log-in" class="Log-button">
-        </p>
-        <p style="color: rgba(0,0,0,.5);">Or login with</p>
-        <div id="log-icon">
-          <img id="google-icon" src="{% static "images/google-icon.png" %}">
-          <img id="icon-facebook" src="{% static "images/facebook-icon.png" %}">
-        </div>
+        <p><input type="submit" value="Log-in"></p>
       </form>
     </div>
   </div>
-</div> -->
-
-<div class="align">
-  <img class="logo" src="{%static "images/logo.png"%}">
-  <div class="card">
-
-    <div class="head">
-      <div></div>
-      <a id="login" class="selected" href="#login">Login</a>
-      <a id="register" class="selected" href="#register">Register</a>
-      <div></div>
-    </div>
-
-    <div class="tabs">
-      <form>
-        <div class="inputs">
-          <div class="input">
-            <input type="text" placeholder="Username">
-            <img src="{%static "images/user.svg"%}">
-          </div>
-          <div class="input">
-            <input type="password" placeholder="Password">
-            <img src="{%static "images/passwd.svg"%}">
-          </div>
-          <label>
-            <span><a href="#">Forgot a password?</a></span>
-          </label>
-          <div id="log-button">
-            <button>Login</button>
-          </div>
-        </div>
-      </form>
-      <form>
-        <div class="inputs">
-          <div class="input">
-            <input type="text" placeholder="Username">
-            <img src="{%static "images/user.svg"%}">
-          </div>
-          <div class="input">
-            <input type="password" placeholder="Password">
-            <img src="{%static "images/passwd.svg"%}">
-          </div>
-          <div class="input">
-            <input type="text" placeholder="Email">
-            <img src="{%static "images/email.svg"%}">
-          </div>
-          <div id="log-button">
-            <button>Register</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-</body>
-<script  src="http://code.jquery.com/jquery-3.4.1.js"integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
-<script type="text/javascript">
-  $(window).on("hashchange", function(){
-    if (location.hash.slice(1)=="register"){
-      $(".card").addClass("extend");
-      $("#login").removeClass("selected");
-      $("#register").addClass("selected");
-    }else{
-      $(".card").removeClass("extend");
-      $("#login").addClass("selected");
-      $("#register").removeClass("selected");
-    }
-  });
-  $(window).trigger("hashchange");
-</script>
+{% endblock %}
