@@ -2,33 +2,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
   <title>{% block title %}Educa{% endblock %}</title>
   <link href="{% static "css/base.css" %}" rel="stylesheet">
-</head>
-<body>
-  <div id="header">
-    <a href="/" class="logo">Educa</a>
-    <ul class="menu">
-      {% if request.user.is_authenticated %}
-        <li><a href="{% url "logout" %}">Sign out</a></li>
-      {% else %}
-        <li><a href="{% url "login" %}">Sign in</a></li>
-      {% endif %}
-    </ul>
-  </div>
-  <div id="content">
-    {% block content %}
-    {% endblock %}
-  </div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      {% block domready %}
-      {% endblock %}
-    });
+  <script src="http://code.jquery.com/jquery-3.4.1.js"integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    $(window).on('scroll', function(){
+      if ($(window).scrollTop()){
+        $('nav').addClass('black');
+      }else{
+        $('nav').removeClass('black')
+      }
+    })
   </script>
+</head>
+<body  style=" 
+    background-size: 100%;
+    background: #e1e6e9;
+    background-image:url({% static "images/background1.jpg" %}) ;
+    background-repeat: no-repeat;
+    background-size: cover;">
+
+  <nav>
+    <div class="logo">
+      <a href="#"><img src="{% static "images/logo.png" %}"></a>
+    </div>
+    <div class="logo-name">
+      <a href="#nav">Educa</a>
+    </div>
+    <ul>
+      <li><a href="{% url 'manage_course_list' %}">Home</a></li>
+      <li><a href="{% url 'course_create' %}">About us</a></li>
+      <li><a href="#">Courses</a></li>
+      <li><a href="#">Team</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="navSearch">
+      <form class="nav-form">
+        <input class="navSearch-input" type="text" name="navSearch" placeholder="Search courses">
+        <a class="navSearch-button" href="#" onclick="alert()">Find</a>
+      </form>
+      <ul Sign-ul>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url "logged_out" %}" class="Sign">Sign out</a></li>
+        {% else %}
+        <li><a href="{% url "login" %}" class="Sign">Sign in</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+   {%block content%}
+
+   {% endblock %}
 </body>
+<footer>
+    <div class="all-footer">
+      <div class="license">
+        <h3>2019-2020. Educa</h3>
+        <p>Our terms of use and privacy</p>
+      </div>
+      <div class="simple-menu">
+        <ul>
+          <li><a href="#">Tariffs</a></li>
+          <li><a href="#">somesing</a></li>
+          <li><a href="#">somesing</a></li>
+        </ul>
+        <ul>
+          <li><a href="#">somesing</a></li>
+          <li><a href="#">somesing</a></li>
+          <li><a href="#">somesing</a></li>
+        </ul>
+        <ul>
+          <li><a href="#">somesing</a></li>
+          <li><a href="#">somesing</a></li>
+          <li><a href="#">somesing</a></li>
+        </ul>
+      </div>
+      <div clas="social-links">
+        <a href="https://www.instagram.com/?hl=uk"><img class="social-links-img" src="https://image.flaticon.com/icons/png/512/87/87390.png"></a>
+        <a href="https://uk-ua.facebook.com/"><img class="social-links-img"  src="https://image.flaticon.com/icons/png/512/59/59439.png"></a>
+        <a href="https://telegram.org/"><img class="social-links-img"  src="https://pluspng.com/img-png/telegram-logo-png-open-2000.png"></a>
+        <a href="https://twitter.com/explore"><img class="social-links-img"  src="https://image.flaticon.com/icons/png/512/39/39379.png"></a>
+      </div>
+    </div>
+  </footer>
+
 </html>
